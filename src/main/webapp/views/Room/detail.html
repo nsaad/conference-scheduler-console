@@ -1,0 +1,27 @@
+<header ng-switch on="$location.path().indexOf('/Rooms/new') > -1">
+    <h3 ng-switch-when="true">Create a new Room</h3>
+    <h3 ng-switch-when="false">View or edit Room</h3>
+</header>
+<form id="RoomForm" name="RoomForm" class="form-horizontal" role="form">
+    <div ng-show="displayError" class="alert alert-danger">
+        <strong>Error!</strong> Something broke. Retry, or cancel and start afresh.
+    </div>
+    
+
+    <div class="form-group" ng-class="{'has-error': RoomForm.roomname.$invalid}">
+        <label for="roomname" class="col-sm-2 control-label">Roomname</label>
+        <div id="roomnameControls" class="col-sm-10">
+            <input id="roomname" name="roomname" type="text" class="form-control" ng-model="room.roomname" placeholder="Enter the Room Roomname"></input>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="saveRoom" name="saveRoom" class="btn btn-primary" ng-disabled="isClean() || RoomForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button id="saveAndNewRoom" name="saveAndNewRoom" class="btn btn-primary" ng-disabled="isClean() || RoomForm.$invalid" ng-click="saveAndNew()"><span class="glyphicon glyphicon-ok-sign"></span> Save and New</button>
+            <button id="cancel" name="cancel" class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+            <button id="deleteRoom" name="deleteRoom" class="btn btn-danger" ng-show="room.id" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+        </div>
+    </div>
+</form>

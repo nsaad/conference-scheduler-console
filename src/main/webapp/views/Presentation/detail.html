@@ -1,0 +1,112 @@
+<header ng-switch on="$location.path().indexOf('/Presentations/new') > -1">
+    <h3 ng-switch-when="true">Create a new Presentation</h3>
+    <h3 ng-switch-when="false">View or edit Presentation</h3>
+</header>
+<form id="PresentationForm" name="PresentationForm" class="form-horizontal" role="form">
+    <div ng-show="displayError" class="alert alert-danger">
+        <strong>Error!</strong> Something broke. Retry, or cancel and start afresh.
+    </div>
+    
+
+    <div class="form-group" ng-class="{'has-error': PresentationForm.sessionday.$invalid}">
+        <label for="sessionday" class="col-sm-2 control-label">Sessionday</label>
+        <div id="sessiondayControls" class="col-sm-10">
+            <input id="sessionday" name="sessionday" type="number" class="form-control" ng-model="presentation.sessionday" placeholder="Enter the Presentation Sessionday"></input>
+            <span class="help-block error" ng-show="PresentationForm.sessionday.$error.number">not a number</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': PresentationForm.starttime.$invalid}">
+        <label for="starttime" class="col-sm-2 control-label">Starttime</label>
+        <div id="starttimeControls" class="col-sm-10">
+            <date id="starttime" name="starttime" ng-model="presentation.starttime" placeholder="Enter the Presentation Starttime"></date>
+            <span class="help-block error" ng-show="PresentationForm.starttime.$error.dateFormat">does not match format "yyyy-MM-dd" (e.g. 2013-12-01)</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': PresentationForm.endtime.$invalid}">
+        <label for="endtime" class="col-sm-2 control-label">Endtime</label>
+        <div id="endtimeControls" class="col-sm-10">
+            <date id="endtime" name="endtime" ng-model="presentation.endtime" placeholder="Enter the Presentation Endtime"></date>
+            <span class="help-block error" ng-show="PresentationForm.endtime.$error.dateFormat">does not match format "yyyy-MM-dd" (e.g. 2013-12-01)</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': PresentationForm.title.$invalid}">
+        <label for="title" class="col-sm-2 control-label">Title</label>
+        <div id="titleControls" class="col-sm-10">
+            <input id="title" name="title" type="text" required class="form-control" ng-model="presentation.title" placeholder="Enter the Presentation Title"></input>
+            <span class="help-block error" ng-show="PresentationForm.title.$error.required">required</span> 
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': PresentationForm.brief.$invalid}">
+        <label for="brief" class="col-sm-2 control-label">Brief</label>
+        <div id="briefControls" class="col-sm-10">
+            <input id="brief" name="brief" type="text" ng-maxlength="2000" class="form-control" ng-model="presentation.brief" placeholder="Enter the Presentation Brief"></input>
+            <span class="help-block error" ng-show="PresentationForm.brief.$error.maxlength">maximum length is 2000</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': PresentationForm.speakers.$invalid}">
+        <label for="speakers" class="col-sm-2 control-label">Speakers</label>
+        <div id="speakersControls" class="col-sm-10">
+            <select id="speakers" name="speakers" multiple class="form-control" ng-model="speakersSelection" ng-options="s.text for s in speakersSelectionList">
+                <option value="">Choose a Speakers</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': PresentationForm.difficulty.$invalid}">
+        <label for="difficulty" class="col-sm-2 control-label">Difficulty</label>
+        <div id="difficultyControls" class="col-sm-10">
+            <input id="difficulty" name="difficulty" type="text" class="form-control" ng-model="presentation.difficulty" placeholder="Enter the Presentation Difficulty as a number from 1 easiest to 5 hardest"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': PresentationForm.room.$invalid}">
+        <label for="room" class="col-sm-2 control-label">Room</label>
+        <div id="roomControls" class="col-sm-10">
+        	<select id="room" name="room" class="form-control" ng-model="presentation.room" ng-options="s.id as s.roomname for s in roomsSelectionList track by s.id">
+                <option value="">Choose a Room</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': PresentationForm.sessiontrack.$invalid}">
+        <label for="sessiontrack" class="col-sm-2 control-label">Sessiontrack</label>
+        <div id="sessiontrackControls" class="col-sm-10">
+			<select id="sessiontrack" name="sessiontrack" class="form-control" ng-model="presentation.sessiontrack" ng-options="s.trackname for s in sessionTracksSelectionList track by s.id">
+                <option value="">Choose a session track</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': PresentationForm.sessionsubtrack.$invalid}">
+        <label for="sessionsubtrack" class="col-sm-2 control-label">Sessionsubtrack</label>
+        <div id="sessionsubtrackControls" class="col-sm-10">
+        	<select id="sessionsubtrack" name="sessionsubtrack" class="form-control" ng-model="presentation.sessionsubtrack" ng-options="s.subtrackname for s in sessionSubtracksSelectionList track by s.id">
+                <option value="">Choose a session subtrack</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': PresentationForm.tags.$invalid}">
+        <label for="tags" class="col-sm-2 control-label">Tags</label>
+        <div id="tagsControls" class="col-sm-10">
+            <select id="tags" name="tags" multiple class="form-control" ng-model="tagsSelection" ng-options="t.text for t in tagsSelectionList">
+                <option value="">Choose the Tags</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="savePresentation" name="savePresentation" class="btn btn-primary" ng-disabled="isClean() || PresentationForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button id="saveAndNewPresentation" name="saveAndNewPresentation" class="btn btn-primary" ng-disabled="isClean() || PresentationForm.$invalid" ng-click="saveAndNew()"><span class="glyphicon glyphicon-ok-sign"></span> Save and New</button>
+            <button id="cancel" name="cancel" class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+            <button id="deletePresentation" name="deletePresentation" class="btn btn-danger" ng-show="presentation.id" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+        </div>
+    </div>
+</form>

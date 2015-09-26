@@ -1,0 +1,35 @@
+<header ng-switch on="$location.path().indexOf('/Tracks/new') > -1">
+    <h3 ng-switch-when="true">Create a new Track</h3>
+    <h3 ng-switch-when="false">View or edit Track</h3>
+</header>
+<form id="TrackForm" name="TrackForm" class="form-horizontal" role="form">
+    <div ng-show="displayError" class="alert alert-danger">
+        <strong>Error!</strong> Something broke. Retry, or cancel and start afresh.
+    </div>
+    
+
+    <div class="form-group" ng-class="{'has-error': TrackForm.trackname.$invalid}">
+        <label for="trackname" class="col-sm-2 control-label">Trackname</label>
+        <div id="tracknameControls" class="col-sm-10">
+            <input id="trackname" name="trackname" type="text" class="form-control" ng-model="track.trackname" placeholder="Enter the Track Trackname"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': TrackForm.subtracks.$invalid}">
+        <label for="subtracks" class="col-sm-2 control-label">Subtracks</label>
+        <div id="subtracksControls" class="col-sm-10">
+            <select id="subtracks" name="subtracks" multiple class="form-control" ng-model="subtracksSelection" ng-options="s.text for s in subtracksSelectionList">
+                <option value="">Choose a Subtracks</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="saveTrack" name="saveTrack" class="btn btn-primary" ng-disabled="isClean() || TrackForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button id="saveAndNewTrack" name="saveAndNewTrack" class="btn btn-primary" ng-disabled="isClean() || TrackForm.$invalid" ng-click="saveAndNew()"><span class="glyphicon glyphicon-ok-sign"></span> Save and New</button>
+            <button id="cancel" name="cancel" class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+            <button id="deleteTrack" name="deleteTrack" class="btn btn-danger" ng-show="track.id" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,27 @@
+<header ng-switch on="$location.path().indexOf('/Tags/new') > -1">
+    <h3 ng-switch-when="true">Create a new Tag</h3>
+    <h3 ng-switch-when="false">View or edit Tag</h3>
+</header>
+<form id="TagForm" name="TagForm" class="form-horizontal" role="form">
+    <div ng-show="displayError" class="alert alert-danger">
+        <strong>Error!</strong> Something broke. Retry, or cancel and start afresh.
+    </div>
+    
+
+    <div class="form-group" ng-class="{'has-error': TagForm.tagname.$invalid}">
+        <label for="tagname" class="col-sm-2 control-label">Tagname</label>
+        <div id="tagnameControls" class="col-sm-10">
+            <input id="tagname" name="tagname" type="text" class="form-control" ng-model="tag.tagname" placeholder="Enter the Tag Tagname"></input>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="saveTag" name="saveTag" class="btn btn-primary" ng-disabled="isClean() || TagForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button id="saveAndNewTag" name="saveAndNewTag" class="btn btn-primary" ng-disabled="isClean() || TagForm.$invalid" ng-click="saveAndNew()"><span class="glyphicon glyphicon-ok-sign"></span> Save and New</button>
+            <button id="cancel" name="cancel" class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+            <button id="deleteTag" name="deleteTag" class="btn btn-danger" ng-show="tag.id" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+        </div>
+    </div>
+</form>

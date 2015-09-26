@@ -1,0 +1,122 @@
+<div class="form-horizontal">
+    <h3>Create a new Presentation</h3>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-sm-2">
+            <a id="Create" name="Create" class="btn btn-primary" href="#/Presentations/new"><span class="glyphicon glyphicon-plus-sign"></span> Create</a>
+        </div>
+    </div>
+</div>
+<hr/>
+<div>
+    <h3>Search for Presentations</h3>
+    <form id="PresentationSearch" class="form-horizontal">
+        
+
+    <div class="form-group">
+        <label for="sessionday" class="col-sm-2 control-label">Sessionday</label>
+        <div class="col-sm-10">
+            <input id="sessionday" name="sessionday" class="form-control" type="text" ng-model="search.sessionday" placeholder="Enter the Presentation Sessionday"></input>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label for="title" class="col-sm-2 control-label">Title</label>
+        <div class="col-sm-10">
+            <input id="title" name="title" class="form-control" type="text" ng-model="search.title" placeholder="Enter the Presentation Title"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="brief" class="col-sm-2 control-label">Brief</label>
+        <div class="col-sm-10">
+            <input id="brief" name="brief" class="form-control" type="text" ng-model="search.brief" placeholder="Enter the Presentation Brief"></input>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="difficulty" class="col-sm-2 control-label">Difficulty</label>
+        <div class="col-sm-10">
+            <input id="difficulty" name="difficulty" class="form-control" type="text" ng-model="search.difficulty" placeholder="Enter the Presentation Difficulty"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="room" class="col-sm-2 control-label">Room</label>
+        <div class="col-sm-10">
+            <input id="room" name="room" class="form-control" type="text" ng-model="search.room" placeholder="Enter the Presentation Room"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="sessiontrack" class="col-sm-2 control-label">Sessiontrack</label>
+        <div class="col-sm-10">
+            <input id="sessiontrack" name="sessiontrack" class="form-control" type="text" ng-model="search.sessiontrack" placeholder="Enter the Presentation Sessiontrack"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="sessionsubtrack" class="col-sm-2 control-label">Sessionsubtrack</label>
+        <div class="col-sm-10">
+            <input id="sessionsubtrack" name="sessionsubtrack" class="form-control" type="text" ng-model="search.sessionsubtrack" placeholder="Enter the Presentation Sessionsubtrack"></input>
+        </div>
+    </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-sm-10">
+                <a id="Search" name="Search" class="btn btn-primary" ng-click="performSearch()"><span class="glyphicon glyphicon-search"></span> Search</a>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="search-results">
+        <div class="table-responsive">
+        <table class="table table-responsive table-bordered table-striped clearfix">
+            <thead>
+                <tr>
+                    <th>Sessionday</th>
+                    <th>Starttime</th>
+                    <th>Endtime</th>
+                    <th>Title</th>
+                    <th>Brief</th>
+                    <th>Difficulty</th>
+                    <th>Room</th>
+                    <th>Sessiontrack</th>
+                    <th>Sessionsubtrack</th>
+                    <th>Del</th>
+                </tr>
+            </thead>
+            <tbody id="search-results-body">
+                <tr ng-repeat="result in searchResults | searchFilter:searchResults | startFrom:currentPage*pageSize | limitTo:pageSize">
+                    <td><a href="#/Presentations/edit/{{result.id}}">{{result.sessionday}}</a></td>
+                    <td><a href="#/Presentations/edit/{{result.id}}">{{result.starttime| date:'mediumDate'}}</a></td>
+                    <td><a href="#/Presentations/edit/{{result.id}}">{{result.endtime| date:'mediumDate'}}</a></td>
+                    <td><a href="#/Presentations/edit/{{result.id}}">{{result.title}}</a></td>
+                    <td><a href="#/Presentations/edit/{{result.id}}">{{result.brief}}</a></td>
+                    <td><a href="#/Presentations/edit/{{result.id}}">{{result.difficulty}}</a></td>
+                    <td><a href="#/Presentations/edit/{{result.id}}">{{result.room}}</a></td>
+                    <td><a href="#/Presentations/edit/{{result.id}}">{{result.sessiontrack}}</a></td>
+                    <td><a href="#/Presentations/edit/{{result.id}}">{{result.sessionsubtrack}}</a></td>
+                    <td><a href="#/Presentations#search-results" ng-click="remove(result)"><span class="glyphicon glyphicon-trash"></span>&nbsp;</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+        <ul class="pagination pagination-centered">
+        <li ng-class="{disabled:currentPage == 0}">
+            <a id="prev" href ng-click="previous()">«</a>
+        </li>
+        <li ng-repeat="n in pageRange" ng-class="{active:currentPage == n}" ng-click="setPage(n)">
+            <a href ng-bind="n + 1">1</a>
+        </li>
+        <li ng-class="{disabled: currentPage == (numberOfPages() - 1)}">
+            <a id="next" href ng-click="next()">»</a>
+        </li>
+    </ul>
+
+</div>
